@@ -1,0 +1,66 @@
+"use client"
+
+import type React from "react"
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
+import { MoreHorizontal, Download, Edit, Trash2, Share } from "lucide-react"
+
+interface FileCardProps {
+  file: {
+    id: string
+    name: string
+    type: "file"
+    size: string
+    lastModified: string
+    icon: string // Name of the Lucide icon
+  }
+  iconComponent: React.ElementType
+  onRename: () => void
+  onDelete: () => void
+  onDownload: () => void
+}
+
+export function FileCard({ file, iconComponent: Icon, onRename, onDelete, onDownload }: FileCardProps) {
+  return (
+    <Card className="glass-card-enhanced text-white hover:glass-strong transition-all duration-300 transform hover:-translate-y-1">
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <div className="flex items-center space-x-3">
+          <Icon className="w-8 h-8 text-[#229ed9]" />
+          <CardTitle className="text-lg font-semibold truncate">{file.name}</CardTitle>
+        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+              <MoreHorizontal className="w-5 h-5" />
+              <span className="sr-only">File actions</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="glass-card-enhanced text-white border-white/20">
+            <DropdownMenuItem className="hover:bg-[#0088cc]/20 cursor-pointer" onClick={onDownload}>
+              <Download className="w-4 h-4 mr-2" />
+              Download
+            </DropdownMenuItem>
+            <DropdownMenuItem className="hover:bg-[#0088cc]/20 cursor-pointer" onClick={onRename}>
+              <Edit className="w-4 h-4 mr-2" />
+              Rename
+            </DropdownMenuItem>
+            <DropdownMenuItem className="hover:bg-[#0088cc]/20 cursor-pointer">
+              <Share className="w-4 h-4 mr-2" />
+              Share
+            </DropdownMenuItem>
+            <DropdownMenuItem className="hover:bg-destructive/20 text-destructive cursor-pointer" onClick={onDelete}>
+              <Trash2 className="w-4 h-4 mr-2" />
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </CardHeader>
+      <CardContent className="text-sm text-gray-400 pt-0">
+        <p>Size: {file.size}</p>
+        <p>Last Modified: {file.lastModified}</p>
+      </CardContent>
+    </Card>
+  )
+}
