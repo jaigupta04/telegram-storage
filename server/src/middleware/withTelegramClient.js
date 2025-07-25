@@ -2,9 +2,17 @@ const { db } = require('../config/firebase');
 const { createClient } = require('../config/telegram');
 const { decrypt } = require('../utils/crypto');
 
+const connectedClients = {};
+
 async function withTelegramClient(req, res, next) {
   try {
     const { userId } = req.params;
+
+    if (connectedClients[userId] && connectedClients[userId].connected) {
+      req.telegramClient = connectedClients[userId];
+      return next();
+    }
+
     const userDoc = await db.collection('users').doc(userId).get();
 
     if (!userDoc.exists) {
@@ -21,6 +29,7 @@ async function withTelegramClient(req, res, next) {
     
     await client.connect();
     
+    connectedClients[userId] = client;
     req.telegramClient = client;
     next();
 
