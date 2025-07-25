@@ -2,8 +2,8 @@
 
 import type React from "react"
 
-import { FileListItem } from "@/components/dashboard/file-list-item" // Updated import
-import { FolderListItem } from "@/components/dashboard/folder-list-item" // Updated import
+import { FileListItem } from "@/components/dashboard/file-list-item"
+import { FolderListItem } from "@/components/dashboard/folder-list-item"
 import { FileText, Folder, ImageIcon, Presentation, Video, File } from "lucide-react"
 
 interface FileExplorerProps {

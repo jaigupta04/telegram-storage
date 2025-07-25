@@ -59,14 +59,14 @@ function VerifyCodeContent() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#1a1a1a] p-4">
+    <div className="min-h-screen flex items-center justify-center bg-[#1a1a1a] px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md glass-card-enhanced glass-card-gradient-top-border text-white">
         <CardHeader className="text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <div className="w-10 h-10 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-lg flex items-center justify-center glass-shimmer">
               <Cloud className="w-6 h-6 text-white" />
             </div>
-            <CardTitle className="text-3xl font-bold">Verify Your Account</CardTitle>
+            <CardTitle className="text-2xl sm:text-3xl font-bold">Verify Your Account</CardTitle>
           </div>
           <p className="text-gray-300">
             Enter the verification code sent to your Telegram account and your 2FA password (if applicable).

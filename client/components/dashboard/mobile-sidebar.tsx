@@ -3,12 +3,13 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { Share2, Trash2, Settings, Home, Cloud } from "lucide-react"
 
-interface DashboardSidebarProps {
+interface MobileSidebarProps {
   currentPath: string[]
   setCurrentPath: (path: string[]) => void
+  onClose: () => void
 }
 
-export function DashboardSidebar({ currentPath, setCurrentPath }: DashboardSidebarProps) {
+export function MobileSidebar({ currentPath, setCurrentPath, onClose }: MobileSidebarProps) {
   const navItems = [
     { name: "My Files", icon: Home, path: ["My Files"] },
     { name: "Shared with me", icon: Share2, path: ["Shared with me"] },
@@ -16,8 +17,13 @@ export function DashboardSidebar({ currentPath, setCurrentPath }: DashboardSideb
     { name: "Settings", icon: Settings, path: ["Settings"] },
   ]
 
+  const handleItemClick = (path: string[]) => {
+    setCurrentPath(path)
+    onClose()
+  }
+
   return (
-    <aside className="hidden md:flex md:w-56 bg-[#1e1e1e] p-3 border-r border-white/10 glass-dark-strong flex-col">
+    <div className="flex flex-col h-full">
       <div className="flex items-center space-x-2 mb-6 px-3 py-2">
         <div className="w-8 h-8 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-lg flex items-center justify-center glass-shimmer">
           <Cloud className="w-5 h-5 text-white" />
@@ -34,13 +40,13 @@ export function DashboardSidebar({ currentPath, setCurrentPath }: DashboardSideb
               "w-full justify-start text-white hover:bg-white/10 hover:text-white text-sm",
               currentPath[0] === item.name && "bg-[#0088cc]/30",
             )}
-            onClick={() => setCurrentPath(item.path)}
+            onClick={() => handleItemClick(item.path)}
           >
             <item.icon className="w-4 h-4 mr-2.5" />
             {item.name}
           </Button>
         ))}
       </nav>
-    </aside>
+    </div>
   )
 }

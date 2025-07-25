@@ -11,16 +11,20 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
+import { Menu, X } from "lucide-react"
 import { Cloud, Zap, Users, Smartphone, Globe, Check, ArrowRight, Infinity, Folder, LogOut, LayoutDashboard } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { API_BASE_URL } from "@/lib/api"
 
 export default function HomePage() {
   const [userName, setUserName] = useState(null)
   const router = useRouter()
+  const isMobile = useIsMobile()
 
   const checkAuth = async () => {
     try {
@@ -67,16 +71,16 @@ export default function HomePage() {
             <span className="text-xl font-bold">Teleora</span>
           </div>
 
-          <nav className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
             <Link href="#features" className="text-gray-300 hover:text-white transition-colors">
               Features
             </Link>
             <Link href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">
               How it Works
             </Link>
-          </nav>
+          </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
             {userName ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -100,12 +104,67 @@ export default function HomePage() {
               </DropdownMenu>
             ) : (
               <Link href="/login" passHref>
-                <Button className="bg-[#0088cc] hover:bg-[#229ed9] rounded-full text-white flex items-center px-4 py-2">
-                  <Image src="/images/telegram-logo.png" alt="Telegram Logo" width={20} height={20} className="mr-2" />
-                  Log in with Telegram
+                <Button className="bg-[#0088cc] hover:bg-[#229ed9] rounded-full text-white flex items-center px-2 sm:px-4 py-2">
+                  <Image src="/images/telegram-logo.png" alt="Telegram Logo" width={20} height={20} className="sm:mr-2" />
+                  <span className="hidden sm:inline">Log in with Telegram</span>
                 </Button>
               </Link>
             )}
+          </div>
+
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="w-6 h-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-full bg-[#1e1e1e] p-6 border-l border-white/10 glass-dark-strong flex flex-col">
+                <SheetClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary text-white">
+                  <X className="h-6 w-6" />
+                  <span className="sr-only">Close</span>
+                </SheetClose>
+                <nav className="flex flex-col space-y-6 text-lg mt-8">
+                  <Link href="#features" className="text-gray-300 hover:text-white transition-colors">
+                    Features
+                  </Link>
+                  <Link href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">
+                    How it Works
+                  </Link>
+                </nav>
+                <div className="mt-auto pt-6 border-t border-white/10">
+                  {userName ? (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-center px-4 py-2 rounded-full text-white glass-button-liquid text-lg"
+                        >
+                          Hello! {userName}
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-56 glass-dark-strong border-white/10 text-white">
+                        <DropdownMenuItem onSelect={() => router.push("/dashboard")}>
+                          <LayoutDashboard className="mr-2 h-4 w-4" />
+                          <span>Go to Dashboard</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onSelect={handleLogout}>
+                          <LogOut className="mr-2 h-4 w-4" />
+                          <span>Logout</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  ) : (
+                    <Link href="/login" passHref>
+                      <Button className="bg-[#0088cc] hover:bg-[#229ed9] rounded-full text-white flex items-center w-full justify-center px-4 py-2 text-lg">
+                        <Image src="/images/telegram-logo.png" alt="Telegram Logo" width={20} height={20} className="mr-2" />
+                        <span>Log in with Telegram</span>
+                      </Button>
+                    </Link>
+                  )}
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </header>
@@ -133,7 +192,7 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link href={userName ? "/dashboard" : "/login"} passHref>
-              <Button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary hover:bg-primary/90 h-11 glass-button-enhanced text-white px-8 py-4 text-lg rounded-full">
+              <Button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary hover:bg-primary/90 h-11 glass-button-enhanced text-white px-8 py-4 text-lg rounded-full w-full sm:w-auto">
                 Go to Dashboard
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
@@ -141,7 +200,7 @@ export default function HomePage() {
             <Button
                 size="lg"
                 variant="outline"
-                className="glass-outline-enhanced px-8 py-4 text-lg text-white bg-transparent rounded-full"
+                className="glass-outline-enhanced px-8 py-4 text-lg text-white bg-transparent rounded-full w-full sm:w-auto"
               >
                 <Link href="#features">
                   Learn more
@@ -153,11 +212,11 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="min-h-screen py-20 px-4 bg-[#1e1e1e]">
+      <section id="features" className="py-20 px-4 bg-[#1e1e1e]">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Why Choose Teleora?</h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Why Choose Teleora?</h2>
+            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
               Experience the power of unlimited cloud storage with the reliability of Telegram's infrastructure
             </p>
           </div>
@@ -240,11 +299,11 @@ export default function HomePage() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="min-h-screen py-20 px-4">
+      <section id="how-it-works" className="py-20 px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">How Teleora Works</h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">How Teleora Works</h2>
+            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
               Simple steps to transform your Telegram into unlimited cloud storage
             </p>
           </div>

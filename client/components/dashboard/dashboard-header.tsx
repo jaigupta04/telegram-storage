@@ -3,20 +3,37 @@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Search, Upload, FolderPlus, User, Settings, LogOut } from "lucide-react"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Search, Upload, FolderPlus, User, Settings, LogOut, Menu } from "lucide-react"
 import Link from "next/link"
+import { MobileSidebar } from "./mobile-sidebar"
 
 interface DashboardHeaderProps {
   onUploadClick: () => void
   onCreateFolderClick: () => void
   onSearchChange: (term: string) => void
+  isMobile: boolean
+  currentPath: string[]
+  setCurrentPath: (path: string[]) => void
 }
 
-export function DashboardHeader({ onUploadClick, onCreateFolderClick, onSearchChange }: DashboardHeaderProps) {
+export function DashboardHeader({ onUploadClick, onCreateFolderClick, onSearchChange, isMobile, currentPath, setCurrentPath }: DashboardHeaderProps) {
   return (
     <header className="sticky top-0 z-40 w-full bg-[#1a1a1a] p-3 border-b border-white/10 glass-dark-strong">
       <div className="flex items-center justify-between h-12">
-        <div className="flex-1 max-w-md mx-4 relative">
+        {isMobile && (
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Menu className="w-6 h-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-56 bg-[#1e1e1e] p-3 border-r border-white/10 glass-dark-strong">
+              <MobileSidebar currentPath={currentPath} setCurrentPath={setCurrentPath} onClose={() => {}} />
+            </SheetContent>
+          </Sheet>
+        )}
+        <div className="flex-1 max-w-xs sm:max-w-md mx-4 relative">
           <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
           <Input
             type="search"
@@ -29,20 +46,20 @@ export function DashboardHeader({ onUploadClick, onCreateFolderClick, onSearchCh
           <Button
             variant="ghost"
             size="sm"
-            className="glass-outline-enhanced text-white hover:bg-[#0088cc]/20 hover:text-white text-sm"
+            className="glass-outline-enhanced text-white hover:bg-[#0088cc]/20 hover:text-white text-sm px-2 sm:px-3"
             onClick={onUploadClick}
           >
-            <Upload className="w-4 h-4 mr-1.5" />
-            Upload File
+            <Upload className="w-4 h-4 sm:mr-1.5" />
+            <span className="hidden sm:inline">Upload</span>
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="glass-outline-enhanced text-white hover:bg-[#0088cc]/20 hover:text-white text-sm"
+            className="glass-outline-enhanced text-white hover:bg-[#0088cc]/20 hover:text-white text-sm px-2 sm:px-3"
             onClick={onCreateFolderClick}
           >
-            <FolderPlus className="w-4 h-4 mr-1.5" />
-            Create Folder
+            <FolderPlus className="w-4 h-4 sm:mr-1.5" />
+            <span className="hidden sm:inline">Create</span>
           </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

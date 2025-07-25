@@ -9,6 +9,7 @@ import { CreateFolderDialog } from "@/components/dashboard/create-folder-dialog"
 import { RenameDialog } from "@/components/dashboard/rename-dialog"
 import { DeleteDialog } from "@/components/dashboard/delete-dialog"
 import { toast } from "@/hooks/use-toast"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { API_BASE_URL } from "@/lib/api"
 import Cookies from "js-cookie"
 
@@ -39,6 +40,7 @@ export default function DashboardPage() {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
   const [selectedItem, setSelectedItem] = useState<{ id: string; name: string; type: "file" | "folder" } | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     const checkUser = async () => {
@@ -198,6 +200,9 @@ export default function DashboardPage() {
           onUploadClick={() => setShowUploadDialog(true)}
           onCreateFolderClick={() => setShowCreateFolderDialog(true)}
           onSearchChange={setSearchTerm}
+          isMobile={isMobile}
+          currentPath={currentPath}
+          setCurrentPath={setCurrentPath}
         />
         <main className="flex-1 p-6 overflow-auto">
           <FileExplorer

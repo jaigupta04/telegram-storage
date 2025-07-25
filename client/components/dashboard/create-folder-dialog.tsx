@@ -26,7 +26,7 @@ export function CreateFolderDialog({ isOpen, onClose, onCreate }: CreateFolderDi
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="text-white border-white/20 bg-[rgba(0,0,0,0.3)] backdrop-blur-[16px] saturate-[150%] shadow-[0_8px_32px_0_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)]">
+      <DialogContent className="max-w-md text-white border-white/20 bg-[rgba(0,0,0,0.3)] backdrop-blur-[16px] saturate-[150%] shadow-[0_8px_32px_0_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)]">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-white flex items-center">
             <FolderPlus className="w-5 h-5 mr-2 text-[#0088cc]" /> Create New Folder
@@ -46,12 +46,12 @@ export function CreateFolderDialog({ isOpen, onClose, onCreate }: CreateFolderDi
             />
           </div>
         </div>
-        <DialogFooter>
+        <DialogFooter className="flex-row justify-end space-x-2">
           <Button
             variant="outline"
             size="sm"
             onClick={onClose}
-            className="glass-outline-enhanced text-white hover:bg-white/10 bg-transparent"
+            className="glass-outline-enhanced text-white hover:bg-white/10 bg-transparent !text-white"
           >
             Cancel
           </Button>
@@ -59,7 +59,7 @@ export function CreateFolderDialog({ isOpen, onClose, onCreate }: CreateFolderDi
             size="sm"
             onClick={handleSubmit}
             disabled={!folderName.trim()}
-            className="glass-button-enhanced text-white"
+            className="bg-[#0088cc] hover:bg-[#229ed9] text-white"
           >
             Create
           </Button>
