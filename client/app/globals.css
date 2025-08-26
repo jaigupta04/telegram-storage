@@ -140,22 +140,13 @@ body {
 .glass-card-enhanced {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px) saturate(180%);
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 2px 16px 0 rgba(255, 255, 255, 0.1), inset 0 1px 0
-    rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 2px 16px 0 rgba(255, 255, 255, 0.1), inset 0 1px 0
+    rgba(255, 255, 255, 0.15); */
   position: relative;
 }
 
-/* New utility to add the gradient border */
-.glass-card-gradient-top-border::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-}
+
 
 /* Enhanced backdrop blur utilities */
 .backdrop-blur-ultra {

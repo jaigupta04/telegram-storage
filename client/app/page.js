@@ -212,7 +212,7 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-4 bg-[#1e1e1e]">
+      <section id="features" className="min-h-screen py-20 px-4 bg-[#1e1e1e]">
         <div className="container mx-auto">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Why Choose Teleora?</h2>
@@ -222,7 +222,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="glass-card-enhanced glass-card-gradient-top-border hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
+            <Card className="glass-card-enhanced hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader className="space-y-4 p-6">
                 <div className="w-12 h-12 glass-badge-enhanced rounded-lg flex items-center justify-center">
                   <Infinity className="w-6 h-6 text-[#229ed9]" />
@@ -234,7 +234,7 @@ export default function HomePage() {
               </CardHeader>
             </Card>
 
-            <Card className="glass-card-enhanced glass-card-gradient-top-border hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
+            <Card className="glass-card-enhanced hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader className="space-y-4 p-6">
                 <div className="w-12 h-12 glass-badge-enhanced rounded-lg flex items-center justify-center">
                   <Folder className="w-6 h-6 text-[#229ed9]" />
@@ -247,7 +247,7 @@ export default function HomePage() {
               </CardHeader>
             </Card>
 
-            <Card className="glass-card-enhanced glass-card-gradient-top-border hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
+            <Card className="glass-card-enhanced hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader className="space-y-4 p-6">
                 <div className="w-12 h-12 glass-badge-enhanced rounded-lg flex items-center justify-center">
                   <Zap className="w-6 h-6 text-[#229ed9]" />
@@ -259,7 +259,7 @@ export default function HomePage() {
               </CardHeader>
             </Card>
 
-            <Card className="glass-card-enhanced glass-card-gradient-top-border hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
+            <Card className="glass-card-enhanced hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader className="space-y-4 p-6">
                 <div className="w-12 h-12 glass-badge-enhanced rounded-lg flex items-center justify-center">
                   <Globe className="w-6 h-6 text-[#229ed9]" />
@@ -271,7 +271,7 @@ export default function HomePage() {
               </CardHeader>
             </Card>
 
-            <Card className="glass-card-enhanced glass-card-gradient-top-border hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
+            <Card className="glass-card-enhanced hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader className="space-y-4 p-6">
                 <div className="w-12 h-12 glass-badge-enhanced rounded-lg flex items-center justify-center">
                   <Users className="w-6 h-6 text-[#229ed9]" />
@@ -283,7 +283,7 @@ export default function HomePage() {
               </CardHeader>
             </Card>
 
-            <Card className="glass-card-enhanced glass-card-gradient-top-border hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
+            <Card className="glass-card-enhanced hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader className="space-y-4 p-6">
                 <div className="w-12 h-12 glass-badge-enhanced rounded-lg flex items-center justify-center">
                   <Smartphone className="w-6 h-6 text-[#229ed9]" />
@@ -309,7 +309,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center glass-card-enhanced glass-card-gradient-top-border p-8 rounded-2xl">
+            <div className="text-center glass-card-enhanced p-8 rounded-2xl">
               <div className="w-16 h-16 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-full flex items-center justify-center mx-auto mb-6 glass-shimmer">
                 <span className="text-2xl font-bold text-white">1</span>
               </div>
@@ -319,7 +319,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="text-center glass-card-enhanced glass-card-gradient-top-border p-8 rounded-2xl">
+            <div className="text-center glass-card-enhanced p-8 rounded-2xl">
               <div className="w-16 h-16 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-full flex items-center justify-center mx-auto mb-6 glass-shimmer">
                 <span className="text-2xl font-bold text-white">2</span>
               </div>
@@ -329,7 +329,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="text-center glass-card-enhanced glass-card-gradient-top-border p-8 rounded-2xl">
+            <div className="text-center glass-card-enhanced p-8 rounded-2xl">
               <div className="w-16 h-16 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-full flex items-center justify-center mx-auto mb-6 glass-shimmer">
                 <span className="text-2xl font-bold text-white">3</span>
               </div>
