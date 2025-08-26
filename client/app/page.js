@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation"
 import { useIsMobile } from "@/hooks/use-mobile";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { Stepper, Step } from "@/components/ui/stepper";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import { API_BASE_URL } from "@/lib/api"
 
 const features = [
@@ -222,12 +223,16 @@ export default function HomePage() {
             Your Files,
             <br />
             <span className="bg-gradient-to-r from-[#0088cc] to-[#229ed9] bg-clip-text text-transparent">
-              Unlimited Space
-            </span>
-          </h1>
-
+            <TypewriterEffect
+              words={[
+                { text: "Unlimited", className: "text-5xl md:text-7xl font-bold bg-gradient-to-r from-[#0088cc] to-[#229ed9] bg-clip-text text-transparent"},
+                { text: "Space", className: "text-5xl md:text-7xl font-bold bg-gradient-to-r from-[#0088cc] to-[#229ed9] bg-clip-text text-transparent" },
+              ]}
+            />
+          </span>
+        </h1>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Transform Telegram into your personal cloud storage — upload, sync, and share unlimited files securely across all your devices
+            Transform Telegram into your personal cloud storage — upload, sync, and share unlimited files securely across all your devices.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
