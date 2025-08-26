@@ -18,8 +18,49 @@ import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { useIsMobile } from "@/hooks/use-mobile"
+import { useIsMobile } from "@/hooks/use-mobile";
+import { HoverEffect } from "@/components/ui/card-hover-effect";
+import { Stepper, Step } from "@/components/ui/stepper";
 import { API_BASE_URL } from "@/lib/api"
+
+const features = [
+  {
+    title: "Unlimited Storage",
+    description: "Never worry about storage limits again. Store as many files as you need.",
+    link: "#",
+    icon: <Infinity className="w-6 h-6 text-[#229ed9]" />
+  },
+  {
+    title: "Advanced File Organization",
+    description: "Unlike native Telegram, Teleora provides robust folder structures and tagging for effortless file management.",
+    link: "#",
+    icon: <Folder className="w-6 h-6 text-[#229ed9]" />
+  },
+  {
+    title: "Lightning Fast",
+    description: "Upload and download files at blazing speeds with optimized performance.",
+    link: "#",
+    icon: <Zap className="w-6 h-6 text-[#229ed9]" />
+  },
+  {
+    title: "Global Access",
+    description: "Access your files from anywhere in the world, on any device.",
+    link: "#",
+    icon: <Globe className="w-6 h-6 text-[#229ed9]" />
+  },
+  {
+    title: "Easy Sharing",
+    description: "Share files and folders with team members or friends effortlessly.",
+    link: "#",
+    icon: <Users className="w-6 h-6 text-[#229ed9]" />
+  },
+  {
+    title: "Cross-Platform",
+    description: "Works seamlessly across desktop, mobile, and web platforms.",
+    link: "#",
+    icon: <Smartphone className="w-6 h-6 text-[#229ed9]" />
+  }
+];
 
 export default function HomePage() {
   const [userName, setUserName] = useState(null)
@@ -214,92 +255,21 @@ export default function HomePage() {
       {/* Features Section */}
       <section id="features" className="min-h-screen py-20 px-4 bg-[#1e1e1e]">
         <div className="container mx-auto">
-          <div className="text-center mb-12 sm:mb-16">
+          <div className="text-center mb-12 sm:mb-6">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Why Choose Teleora?</h2>
             <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
               Experience the power of unlimited cloud storage with the reliability of Telegram's infrastructure
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="glass-card-enhanced hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
-              <CardHeader className="space-y-4 p-6">
-                <div className="w-12 h-12 glass-badge-enhanced rounded-lg flex items-center justify-center">
-                  <Infinity className="w-6 h-6 text-[#229ed9]" />
-                </div>
-                <CardTitle className="text-white">Unlimited Storage</CardTitle>
-                <CardDescription className="text-gray-300">
-                  Never worry about storage limits again. Store as many files as you need.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="glass-card-enhanced hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
-              <CardHeader className="space-y-4 p-6">
-                <div className="w-12 h-12 glass-badge-enhanced rounded-lg flex items-center justify-center">
-                  <Folder className="w-6 h-6 text-[#229ed9]" />
-                </div>
-                <CardTitle className="text-white">Advanced File Organization</CardTitle>
-                <CardDescription className="text-gray-300">
-                  Unlike native Telegram, Teleora provides robust folder structures and tagging for effortless file
-                  management.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="glass-card-enhanced hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
-              <CardHeader className="space-y-4 p-6">
-                <div className="w-12 h-12 glass-badge-enhanced rounded-lg flex items-center justify-center">
-                  <Zap className="w-6 h-6 text-[#229ed9]" />
-                </div>
-                <CardTitle className="text-white">Lightning Fast</CardTitle>
-                <CardDescription className="text-gray-300">
-                  Upload and download files at blazing speeds with optimized performance.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="glass-card-enhanced hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
-              <CardHeader className="space-y-4 p-6">
-                <div className="w-12 h-12 glass-badge-enhanced rounded-lg flex items-center justify-center">
-                  <Globe className="w-6 h-6 text-[#229ed9]" />
-                </div>
-                <CardTitle className="text-white">Global Access</CardTitle>
-                <CardDescription className="text-gray-300">
-                  Access your files from anywhere in the world, on any device.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="glass-card-enhanced hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
-              <CardHeader className="space-y-4 p-6">
-                <div className="w-12 h-12 glass-badge-enhanced rounded-lg flex items-center justify-center">
-                  <Users className="w-6 h-6 text-[#229ed9]" />
-                </div>
-                <CardTitle className="text-white">Easy Sharing</CardTitle>
-                <CardDescription className="text-gray-300">
-                  Share files and folders with team members or friends effortlessly.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="glass-card-enhanced hover:glass-strong transition-all duration-300 transform hover:-translate-y-2">
-              <CardHeader className="space-y-4 p-6">
-                <div className="w-12 h-12 glass-badge-enhanced rounded-lg flex items-center justify-center">
-                  <Smartphone className="w-6 h-6 text-[#229ed9]" />
-                </div>
-                <CardTitle className="text-white">Cross-Platform</CardTitle>
-                <CardDescription className="text-gray-300">
-                  Works seamlessly across desktop, mobile, and web platforms.
-                </CardDescription>
-              </CardHeader>
-            </Card>
+          <div className="max-w-7xl mx-auto px-8">
+            <HoverEffect items={features} />
           </div>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 px-4">
+      <section id="how-it-works" className="min-h-screen py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">How Teleora Works</h2>
@@ -308,105 +278,46 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center glass-card-enhanced p-8 rounded-2xl">
-              <div className="w-16 h-16 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-full flex items-center justify-center mx-auto mb-6 glass-shimmer">
-                <span className="text-2xl font-bold text-white">1</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Connect Telegram</h3>
-              <p className="text-gray-300">
-                Securely connect your Telegram account to Teleora with our encrypted authentication.
-              </p>
-            </div>
-
-            <div className="text-center glass-card-enhanced p-8 rounded-2xl">
-              <div className="w-16 h-16 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-full flex items-center justify-center mx-auto mb-6 glass-shimmer">
-                <span className="text-2xl font-bold text-white">2</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Upload Files</h3>
-              <p className="text-gray-300">
-                Drag and drop or select files to upload. They're automatically organized and encrypted.
-              </p>
-            </div>
-
-            <div className="text-center glass-card-enhanced p-8 rounded-2xl">
-              <div className="w-16 h-16 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-full flex items-center justify-center mx-auto mb-6 glass-shimmer">
-                <span className="text-2xl font-bold text-white">3</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Access Anywhere</h3>
-              <p className="text-gray-300">
-                Access your files from any device, share with others, and enjoy unlimited storage.
-              </p>
-            </div>
+          <div className="max-w-4xl mx-auto">
+            <Stepper>
+              <Step>
+                <div className="text-center glass-card-enhanced p-8 rounded-2xl">
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-full flex items-center justify-center mx-auto mb-6 glass-shimmer">
+                    <span className="text-2xl font-bold text-white">1</span>
+                  </div>
+                  <h3 className="text-xl font-semibold mb-4">Connect Telegram</h3>
+                  <p className="text-gray-300">
+                    Securely connect your Telegram account to Teleora with our encrypted authentication.
+                  </p>
+                </div>
+              </Step>
+              <Step>
+                <div className="text-center glass-card-enhanced p-8 rounded-2xl">
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-full flex items-center justify-center mx-auto mb-6 glass-shimmer">
+                    <span className="text-2xl font-bold text-white">2</span>
+                  </div>
+                  <h3 className="text-xl font-semibold mb-4">Upload Files</h3>
+                  <p className="text-gray-300">
+                    Drag and drop or select files to upload. They're automatically organized and encrypted.
+                  </p>
+                </div>
+              </Step>
+              <Step>
+                <div className="text-center glass-card-enhanced p-8 rounded-2xl">
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-full flex items-center justify-center mx-auto mb-6 glass-shimmer">
+                    <span className="text-2xl font-bold text-white">3</span>
+                  </div>
+                  <h3 className="text-xl font-semibold mb-4">Access Anywhere</h3>
+                  <p className="text-gray-300">
+                    Access your files from any device, share with others, and enjoy unlimited storage.
+                  </p>
+                </div>
+              </Step>
+            </Stepper>
           </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      {/* <section id="pricing" className="py-20 px-4 bg-[#1e1e1e]">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">Choose the plan that works best for you</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto justify-center">
-            <Card className="glass-card-enhanced glass-card-gradient-top-border">
-              <CardHeader className="text-center">
-                <CardTitle className="text-white text-2xl">Free Telegram User</CardTitle>
-                <div className="text-4xl font-bold text-[#229ed9] my-4">Free</div>
-                <CardDescription className="text-gray-300">Perfect for personal use</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-center text-gray-300">
-                    <Check className="w-5 h-5 text-[#229ed9] mr-3" />
-                    Unlimited Storage
-                  </li>
-                  <li className="flex items-center text-gray-300">
-                    <Check className="w-5 h-5 text-[#229ed9] mr-3" />
-                    2GB File Size Limit
-                  </li>
-                  <li className="flex items-center text-gray-300">
-                    <Check className="w-5 h-5 text-[#229ed9] mr-3" />
-                    Basic File Sharing
-                  </li>
-                  <li className="flex items-center text-gray-300">
-                    <Check className="w-5 h-5 text-[#229ed9] mr-3" />
-                    Mobile & Web Access
-                  </li>
-                </ul>
-                <Button className="w-full glass-outline-enhanced text-white">Get Started</Button>
-              </CardContent>
-            </Card>
-
-            <Card className="glass-pricing-featured relative">
-              <CardHeader className="text-center">
-                <CardTitle className="text-white text-2xl">Premium Telegram User</CardTitle>
-                <div className="text-4xl font-bold text-[#229ed9] my-4">Free</div>
-                <CardDescription className="text-gray-300">For power users</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-center text-gray-300">
-                    <Check className="w-5 h-5 text-[#229ed9] mr-3" />
-                    Unlimited Storage
-                  </li>
-                  <li className="flex items-center text-gray-300">
-                    <Check className="w-5 h-5 text-[#229ed9] mr-3" />
-                    4GB File Size Limit
-                  </li>
-                  <li className="flex items-center text-gray-300">
-                    <Check className="w-5 h-5 text-[#229ed9] mr-3" />
-                    Advanced Sharing
-                  </li>
-                </ul>
-                <Button className="w-full glass-button-enhanced text-white">Go to Dashboard</Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section> */}
 
       {/* Footer */}
       <footer className="glass-footer py-12 px-4">
