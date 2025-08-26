@@ -227,8 +227,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Transform Telegram into your personal cloud drive. Store, sync, and access unlimited files across all your
-            devices with military-grade security.
+            Transform Telegram into your personal cloud storage — upload, sync, and share unlimited files securely across all your devices
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

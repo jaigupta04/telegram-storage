@@ -4,15 +4,32 @@ import * as React from "react"
 import { motion } from "framer-motion"
 
 import { cn } from "@/lib/utils"
+import { Button } from "./button"
 
-const Stepper = React.forwardRef(
+interface StepperProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode
+}
+
+const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
   ({ className, children, ...props }, ref) => {
     const steps = React.Children.toArray(children)
     const [currentStep, setCurrentStep] = React.useState(0)
 
-    const handleStep = (index) => {
+    const handleStep = (index: number) => {
       if (index >= 0 && index < steps.length) {
         setCurrentStep(index)
+      }
+    }
+
+    const handleNext = () => {
+      if (currentStep < steps.length - 1) {
+        setCurrentStep(currentStep + 1)
+      }
+    }
+
+    const handlePrevious = () => {
+      if (currentStep > 0) {
+        setCurrentStep(currentStep - 1)
       }
     }
 
@@ -59,13 +76,33 @@ const Stepper = React.forwardRef(
             {steps[currentStep]}
           </motion.div>
         </div>
+        <div className="flex justify-between">
+          <Button
+            size="sm"
+            variant="outline"
+            className="glass-outline-enhanced px-8 py-4 text-sm text-white bg-transparent rounded-full w-full sm:w-auto"
+            onClick={handlePrevious} 
+            disabled={currentStep === 0}>
+            Previous
+          </Button>
+          <Button 
+            size="sm"
+            variant="outline"
+            className="glass-outline-enhanced px-8 py-4 text-sm text-white bg-transparent rounded-full w-full sm:w-auto"
+            onClick={handleNext} 
+            disabled={currentStep === steps.length - 1}>
+            Next
+          </Button>
+        </div>
       </div>
     )
   }
 )
 Stepper.displayName = "Stepper"
 
-const Step = React.forwardRef(({ className, ...props }, ref) => {
+interface StepProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+const Step = React.forwardRef<HTMLDivElement, StepProps>(({ className, ...props }, ref) => {
   return (
     <div
       ref={ref}
