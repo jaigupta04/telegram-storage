@@ -22,6 +22,12 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { Stepper, Step } from "@/components/ui/stepper";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 import { API_BASE_URL } from "@/lib/api"
 
 const features = [
@@ -61,6 +67,24 @@ const features = [
     link: "#",
     icon: <Smartphone className="w-6 h-6 text-[#229ed9]" />
   }
+];
+
+const faqs = [
+  {
+    question: "What is Teleora?",
+    answer:
+      "Teleora is a web application that transforms your Telegram account into a powerful, organized, and unlimited cloud storage solution. It allows you to upload, manage, and access your files with a user-friendly interface, leveraging Telegram's secure and reliable infrastructure.",
+  },
+  {
+    question: "Is my data secure?",
+    answer:
+      "Yes, your data is as secure as Telegram itself. We use Telegram's official API to store your files in your 'Saved Messages'. We don't have access to your personal chats or data. The authentication is also handled securely through Telegram.",
+  },
+  {
+    question: "Is there a storage limit?",
+    answer:
+      "No, there is no storage limit. You can upload as many files as you want, as long as each individual file is under Telegram's file size limit (currently 2GB per file).",
+  },
 ];
 
 export default function HomePage() {
@@ -120,6 +144,9 @@ export default function HomePage() {
             <Link href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">
               How it Works
             </Link>
+            <Link href="#faq" className="text-gray-300 hover:text-white transition-colors">
+              FAQs
+            </Link>
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
@@ -172,6 +199,9 @@ export default function HomePage() {
                   </Link>
                   <Link href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">
                     How it Works
+                  </Link>
+                  <Link href="#faq" className="text-gray-300 hover:text-white transition-colors">
+                    FAQs
                   </Link>
                 </nav>
                 <div className="mt-auto pt-6 border-t border-white/10">
@@ -322,6 +352,43 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section id="faq" className="py-20 px-4">
+        <div className="container mx-auto">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
+              Here are some of our most frequently asked questions.
+            </p>
+          </div>
+          <div className="max-w-3xl mx-auto">
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="glass-card-enhanced mb-4 rounded-2xl px-6">
+                  <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-300">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+            <div className="text-center mt-8">
+              <Link href="/faq" passHref>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="glass-outline-enhanced px-8 py-4 text-lg text-white bg-transparent rounded-full w-full sm:w-auto"
+                >
+                  View All FAQs
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       {/* Footer */}
       <footer className="glass-footer py-12 px-4">
@@ -393,8 +460,8 @@ export default function HomePage() {
               <h3 className="font-semibold mb-4">Support</h3>
               <ul className="space-y-2 text-gray-300">
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Help Center
+                  <Link href="/faq" className="hover:text-white transition-colors">
+                    FAQs
                   </Link>
                 </li>
                 <li>

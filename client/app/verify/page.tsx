@@ -90,7 +90,7 @@ function VerifyCodeContent() {
             </div>
             <div>
               <Label htmlFor="2fa-password" className="sr-only">
-                2FA Password (Optional)
+                2FA Password (if applicable)
               </Label>
               <Input
                 id="2fa-password"
