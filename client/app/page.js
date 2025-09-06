@@ -125,6 +125,15 @@ export default function HomePage() {
       console.error("Logout failed:", error)
     }
   }
+
+  const handleScroll = (e, id) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#1a1a1a] text-white">
       {/* Header */}
@@ -138,15 +147,15 @@ export default function HomePage() {
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="#features" className="text-gray-300 hover:text-white transition-colors">
+            <a onClick={(e) => handleScroll(e, 'features')} className="text-gray-300 hover:text-white transition-colors cursor-pointer">
               Features
-            </Link>
-            <Link href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">
+            </a>
+            <a onClick={(e) => handleScroll(e, 'how-it-works')} className="text-gray-300 hover:text-white transition-colors cursor-pointer">
               How it Works
-            </Link>
-            <Link href="#faq" className="text-gray-300 hover:text-white transition-colors">
+            </a>
+            <a onClick={(e) => handleScroll(e, 'faq')} className="text-gray-300 hover:text-white transition-colors cursor-pointer">
               FAQs
-            </Link>
+            </a>
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
@@ -194,15 +203,15 @@ export default function HomePage() {
                   <span className="sr-only">Close</span>
                 </SheetClose>
                 <nav className="flex flex-col space-y-6 text-lg mt-8">
-                  <Link href="#features" className="text-gray-300 hover:text-white transition-colors">
+                  <SheetClose asChild><a onClick={(e) => handleScroll(e, 'features')} className="text-gray-300 hover:text-white transition-colors cursor-pointer">
                     Features
-                  </Link>
-                  <Link href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">
+                  </a></SheetClose>
+                  <SheetClose asChild><a onClick={(e) => handleScroll(e, 'how-it-works')} className="text-gray-300 hover:text-white transition-colors cursor-pointer">
                     How it Works
-                  </Link>
-                  <Link href="#faq" className="text-gray-300 hover:text-white transition-colors">
+                  </a></SheetClose>
+                  <SheetClose asChild><a onClick={(e) => handleScroll(e, 'faq')} className="text-gray-300 hover:text-white transition-colors cursor-pointer">
                     FAQs
-                  </Link>
+                  </a></SheetClose>
                 </nav>
                 <div className="mt-auto pt-6 border-t border-white/10">
                   {userName ? (
@@ -276,10 +285,9 @@ export default function HomePage() {
                 size="lg"
                 variant="outline"
                 className="glass-outline-enhanced px-8 py-4 text-lg text-white bg-transparent rounded-full w-full sm:w-auto"
+                onClick={(e) => handleScroll(e, 'features')}
               >
-                <Link href="#features">
                   Learn more
-                </Link>
               </Button>
             
           </div>
@@ -408,9 +416,9 @@ export default function HomePage() {
               <h3 className="font-semibold mb-4">Product</h3>
               <ul className="space-y-2 text-gray-300">
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <a onClick={(e) => handleScroll(e, 'features')} className="hover:text-white transition-colors cursor-pointer">
                     Features
-                  </Link>
+                  </a>
                 </li>
                 <li>
                   <Link href="#" className="hover:text-white transition-colors">
