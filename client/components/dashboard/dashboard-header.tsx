@@ -6,7 +6,10 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Search, Upload, FolderPlus, User, Settings, LogOut, Menu } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { MobileSidebar } from "./mobile-sidebar"
+import { authAPI } from "@/lib/api"
+import { useState } from "react"
 
 interface DashboardHeaderProps {
   onUploadClick: () => void
@@ -18,6 +21,24 @@ interface DashboardHeaderProps {
 }
 
 export function DashboardHeader({ onUploadClick, onCreateFolderClick, onSearchChange, isMobile, currentPath, setCurrentPath }: DashboardHeaderProps) {
+  const router = useRouter()
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+
+  const handleLogout = async () => {
+    try {
+      setIsLoggingOut(true)
+      await authAPI.logout()
+      
+      // Force a hard navigation to login page to clear any cached state
+      window.location.href = '/login'
+    } catch (error) {
+      console.error('Logout failed:', error)
+      // Even if logout fails on server, clear local state and redirect
+      window.location.href = '/login'
+    } finally {
+      setIsLoggingOut(false)
+    }
+  }
   return (
     <header className="sticky top-0 z-40 w-full bg-[#1a1a1a] p-3 border-b border-white/10 glass-dark-strong">
       <div className="flex items-center justify-between h-12">
@@ -77,9 +98,13 @@ export function DashboardHeader({ onUploadClick, onCreateFolderClick, onSearchCh
                 <Settings className="w-3.5 h-3.5 mr-2" />
                 Settings
               </DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-[#0088cc]/20 cursor-pointer text-sm">
+              <DropdownMenuItem 
+                className="hover:bg-[#0088cc]/20 cursor-pointer text-sm"
+                onClick={handleLogout}
+                disabled={isLoggingOut}
+              >
                 <LogOut className="w-3.5 h-3.5 mr-2" />
-                <Link href="/">Logout</Link>
+                {isLoggingOut ? 'Logging out...' : 'Logout'}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

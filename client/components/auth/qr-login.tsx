@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label"
 import { QrCode, Loader2, Check, AlertCircle, Smartphone } from "lucide-react"
 import { toast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { API_BASE_URL } from "@/lib/api"
 import QRCode from "qrcode"
 
@@ -257,6 +258,12 @@ export function QRLogin({ onBack }: QRLoginProps) {
           <Smartphone className="w-4 h-4 mr-2" />
           Login with Phone Number
         </Button>
+
+        <div className="text-center text-sm text-gray-400">
+          <Link href="/" className="hover:text-white transition-colors">
+            &larr; Back to Home
+          </Link>
+        </div>
       </CardContent>
     </Card>
   )

@@ -28,7 +28,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { API_BASE_URL } from "@/lib/api"
+import { API_BASE_URL, authAPI } from "@/lib/api"
 
 const features = [
   {
@@ -94,15 +94,8 @@ export default function HomePage() {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/check-auth`, {
-        credentials: "include",
-      })
-      if (response.ok) {
-        const data = await response.json()
-        setUserName(data.fullName)
-      } else {
-        setUserName(null)
-      }
+      const data = await authAPI.checkAuth()
+      setUserName(data.fullName)
     } catch (error) {
       console.error("Auth check failed:", error)
       setUserName(null)
@@ -111,18 +104,27 @@ export default function HomePage() {
 
   useEffect(() => {
     checkAuth()
+    
+    // Listen for focus events to re-check auth when user returns to tab
+    const handleFocus = () => {
+      checkAuth()
+    }
+    
+    window.addEventListener('focus', handleFocus)
+    
+    return () => {
+      window.removeEventListener('focus', handleFocus)
+    }
   }, [])
 
   const handleLogout = async () => {
     try {
-      await fetch(`${API_BASE_URL}/logout`, {
-        method: "POST",
-        credentials: "include",
-      })
+      await authAPI.logout()
       setUserName(null) // Update UI immediately
       router.refresh() // Refresh the page to reflect logged-out state
     } catch (error) {
       console.error("Logout failed:", error)
+      setUserName(null) // Clear UI state even if API call fails
     }
   }
 
