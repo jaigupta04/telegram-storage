@@ -15,9 +15,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Cloud } from "lucide-react"
+import { Cloud, QrCode, Smartphone } from "lucide-react"
 import Link from "next/link"
 import { useEffect } from "react"
+import { QRLogin } from "@/components/auth/qr-login"
 
 interface CountryCode {
   value: string
@@ -28,6 +29,7 @@ export default function LoginPage() {
   const [phoneNumber, setPhoneNumber] = useState("")
   const [countryCode, setCountryCode] = useState("91")
   const [countryCodes, setCountryCodes] = useState<CountryCode[]>([{ value: "91", label: "IN (+91)" }])
+  const [loginMethod, setLoginMethod] = useState<"phone" | "qr">("qr") // Default to QR
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
@@ -80,52 +82,71 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#1a1a1a] px-4 sm:px-6 lg:px-8">
-      <Card className="w-full max-w-md glass-card-enhanced glass-card-gradient-top-border text-white">
-        <CardHeader className="text-center">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-lg flex items-center justify-center glass-shimmer">
-              <Cloud className="w-6 h-6 text-white" />
+      {loginMethod === "phone" ? (
+        <Card className="w-full max-w-md glass-card-enhanced glass-card-gradient-top-border text-white">
+          <CardHeader className="text-center">
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <div className="w-10 h-10 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-lg flex items-center justify-center glass-shimmer">
+                <Smartphone className="w-6 h-6 text-white" />
+              </div>
+              <CardTitle className="text-2xl sm:text-3xl font-bold">Phone Login</CardTitle>
             </div>
-            <CardTitle className="text-2xl sm:text-3xl font-bold">Welcome to Teleora</CardTitle>
-          </div>
-          <p className="text-gray-300">Enter your phone number to log in with Telegram.</p>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSendCode} className="space-y-6">
-            <div className="flex gap-2">
-              <Select value={countryCode} onValueChange={setCountryCode}>
-                <SelectTrigger className="w-[120px] glass-outline-enhanced text-white">
-                  <SelectValue placeholder="Country" />
-                </SelectTrigger>
-                <SelectContent className="glass-dark-strong border-white/10 text-white">
-                  {countryCodes.map((country) => (
-                    <SelectItem key={country.value} value={country.value}>
-                      {country.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Input
-                id="phone-number"
-                type="tel"
-                placeholder="Phone Number"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                className="flex-1 glass-outline-enhanced text-white placeholder:text-gray-400"
-                required
-              />
+            <p className="text-gray-300">Enter your phone number to receive a verification code</p>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Phone Number Form */}
+            <form onSubmit={handleSendCode} className="space-y-4">
+              <div className="flex gap-2">
+                <Select value={countryCode} onValueChange={setCountryCode}>
+                  <SelectTrigger className="w-[120px] glass-outline-enhanced text-white">
+                    <SelectValue placeholder="Country" />
+                  </SelectTrigger>
+                  <SelectContent className="glass-dark-strong border-white/10 text-white">
+                    {countryCodes.map((country) => (
+                      <SelectItem key={country.value} value={country.value}>
+                        {country.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Input
+                  id="phone-number"
+                  type="tel"
+                  placeholder="Phone Number"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  className="flex-1 glass-outline-enhanced text-white placeholder:text-gray-400"
+                  required
+                />
+              </div>
+              <Button type="submit" disabled={isLoading} className="w-full glass-button-enhanced text-white rounded-full">
+                {isLoading ? "Sending Code..." : "Send Verification Code"}
+              </Button>
+            </form>
+
+            {/* Switch to QR option */}
+            <div className="text-center space-y-3">
+              <div className="text-sm text-gray-400">Or</div>
+              <Button 
+                onClick={() => setLoginMethod("qr")}
+                variant="outline"
+                className="w-full glass-outline-enhanced text-white rounded-full border-gray-600 hover:border-[#0088cc] hover:bg-[#0088cc]/20"
+              >
+                <QrCode className="w-4 h-4 mr-2" />
+                Login with QR Code
+              </Button>
             </div>
-            <Button type="submit" disabled={isLoading} className="w-full glass-button-enhanced text-white rounded-full">
-              {isLoading ? "Sending Code..." : "Send Verification Code"}
-            </Button>
-          </form>
-          <div className="mt-6 text-center text-sm text-gray-400">
-            <Link href="/" className="hover:text-white transition-colors">
-              &larr; Back to Home
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
+
+            <div className="text-center text-sm text-gray-400">
+              <Link href="/" className="hover:text-white transition-colors">
+                &larr; Back to Home
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <QRLogin onBack={() => setLoginMethod("phone")} />
+      )}
     </div>
   )
 }
