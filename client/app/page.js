@@ -81,6 +81,11 @@ const faqs = [
       "Yes, your data is as secure as Telegram itself. We use Telegram's official API to store your files in your 'Saved Messages'. We don't have access to your personal chats or data. The authentication is also handled securely through Telegram.",
   },
   {
+    question: "Is Teleora open source?",
+    answer:
+      "Yes! Teleora is completely open source. You can view, contribute to, and even self-host the entire codebase on GitHub. We believe in transparency and community-driven development. Feel free to inspect our code, report issues, or submit pull requests to help improve the platform.",
+  },
+  {
     question: "Is there a storage limit?",
     answer:
       "No, there is no storage limit. You can upload as many files as you want, as long as each individual file is under Telegram's file size limit (currently 2GB per file).",
