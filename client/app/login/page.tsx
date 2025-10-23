@@ -129,8 +129,9 @@ export default function LoginPage() {
               <div className="text-sm text-gray-400">Or</div>
               <Button 
                 onClick={() => setLoginMethod("qr")}
+                size="sm"
                 variant="outline"
-                className="w-full glass-outline-enhanced text-white rounded-full border-gray-600 hover:border-[#0088cc] hover:bg-[#0088cc]/20"
+                className="glass-outline-enhanced px-8 py-4 text-sm text-white bg-transparent rounded-full w-full"
               >
                 <QrCode className="w-4 h-4 mr-2" />
                 Login with QR Code

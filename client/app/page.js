@@ -347,7 +347,7 @@ export default function HomePage() {
                   </div>
                   <h3 className="text-xl font-semibold mb-4">Upload Files</h3>
                   <p className="text-gray-300">
-                    Drag and drop or select files to upload. They're automatically organized and encrypted.
+                    Select files to upload. They're automatically organized and encrypted in Saved Messages of your Telegram account.
                   </p>
                 </div>
               </Step>
@@ -358,7 +358,7 @@ export default function HomePage() {
                   </div>
                   <h3 className="text-xl font-semibold mb-4">Access Anywhere</h3>
                   <p className="text-gray-300">
-                    Access your files from any device, share with others, and enjoy unlimited storage.
+                    Access your files from any device and enjoy unlimited storage.
                   </p>
                 </div>
               </Step>
@@ -380,7 +380,7 @@ export default function HomePage() {
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`} className="glass-card-enhanced mb-4 rounded-2xl px-6">
-                  <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                  <AccordionTrigger className="text-md font-semibold hover:no-underline">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-gray-300">
@@ -392,9 +392,9 @@ export default function HomePage() {
             <div className="text-center mt-8">
               <Link href="/faq" passHref>
                 <Button
-                  size="lg"
+                  size="sm"
                   variant="outline"
-                  className="glass-outline-enhanced px-8 py-4 text-lg text-white bg-transparent rounded-full w-full sm:w-auto"
+                  className="glass-outline-enhanced px-8 py-4 text-sm text-white bg-transparent rounded-full w-full sm:w-auto"
                 >
                   View All FAQs
                 </Button>
@@ -407,99 +407,57 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="glass-footer py-12 px-4">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-lg flex items-center justify-center glass-shimmer">
-                  <Cloud className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold">Teleora</span>
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center space-y-6">
+            {/* Main Footer Content */}
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <div className="w-10 h-10 bg-gradient-to-r from-[#0088cc] to-[#229ed9] rounded-lg flex items-center justify-center glass-shimmer">
+                <Cloud className="w-6 h-6 text-white" />
               </div>
-              <p className="text-gray-300 mb-4">Transform Telegram into your unlimited cloud storage solution.</p>
+              <span className="text-2xl font-bold">Teleora</span>
+            </div>
+            
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Transform Telegram into your unlimited cloud storage solution.
+            </p>
+
+            {/* Links Section */}
+            <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
+              <Link 
+                href="/developer"
+                className="text-gray-300 hover:text-white transition-colors flex items-center gap-2"
+              >
+                <span>About Developer</span>
+              </Link>
+              
+              <span className="text-gray-600">•</span>
+              
+              <Link 
+                href="https://github.com/jaigupta04/telegram-storage" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-white transition-colors flex items-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                </svg>
+                <span>GitHub</span>
+              </Link>
+              
+              <span className="text-gray-600">•</span>
+              
+              <Link 
+                href="/contact"
+                className="text-gray-300 hover:text-white transition-colors flex items-center gap-2"
+              >
+                <span>Contact Us</span>
+              </Link>
             </div>
 
-            <div>
-              <h3 className="font-semibold mb-4">Product</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li>
-                  <a onClick={(e) => handleScroll(e, 'features')} className="hover:text-white transition-colors cursor-pointer">
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Pricing
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Security
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    API
-                  </Link>
-                </li>
-              </ul>
+            {/* Copyright */}
+            <div className="border-t border-white/15 mt-8 pt-8 text-gray-400 text-sm">
+              <p>&copy; {new Date().getFullYear()} Teleora. Open Source Cloud Storage.</p>
             </div>
-
-            <div>
-              <h3 className="font-semibold mb-4">Company</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-4">Support</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li>
-                  <Link href="/faq" className="hover:text-white transition-colors">
-                    FAQs
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Documentation
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Status
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Privacy
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-white/15 mt-8 pt-8 text-center text-gray-300">
-            <p>&copy; {new Date().getFullYear()} Teleora. All rights reserved.</p>
           </div>
         </div>
       </footer>

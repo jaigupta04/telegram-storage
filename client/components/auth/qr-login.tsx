@@ -253,7 +253,7 @@ export function QRLogin({ onBack }: QRLoginProps) {
         <Button 
           onClick={onBack}
           variant="outline"
-          className="w-full glass-outline-enhanced text-white rounded-full border-gray-600 hover:bg-gray-800"
+          className="glass-outline-enhanced px-8 py-4 text-sm text-white bg-transparent rounded-full w-full"
         >
           <Smartphone className="w-4 h-4 mr-2" />
           Login with Phone Number

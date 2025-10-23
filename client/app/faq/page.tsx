@@ -106,14 +106,14 @@ export default function FAQPage() {
               </Button>
             </Link>
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent text-center">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent text-center">
             Frequently Asked Questions
           </h1>
         </div>
         <Accordion type="single" collapsible className="w-full">
           {faqs.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`} className="glass-card-enhanced mb-4 rounded-2xl px-6">
-              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+              <AccordionTrigger className="text-md font-semibold hover:no-underline">
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="text-gray-300">

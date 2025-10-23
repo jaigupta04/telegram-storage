@@ -23,6 +23,8 @@ app.get('/api/test', async (req, res) => {
 
 const PORT = process.env.PORT || 8080;
 
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+if (process.env.ENVIRONMENT == 'development') {
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
 
 module.exports = app;
