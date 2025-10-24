@@ -7,8 +7,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { ArrowLeft, Mail, Send, Github, Linkedin, CheckCircle, AlertCircle } from "lucide-react"
+import { ArrowLeft, Mail, Send, Github, Linkedin, CheckCircle, AlertCircle, Loader2 } from "lucide-react"
 import { toast } from "@/hooks/use-toast"
+import { API_BASE_URL } from "@/lib/api"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -31,34 +32,41 @@ export default function ContactPage() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
     try {
-      // Create mailto link with form data
-      const mailtoLink = `mailto:jaiwork04@gmail.com?subject=${encodeURIComponent(
-        formData.subject
-      )}&body=${encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      )}`
-      
-      // Open default email client
-      window.location.href = mailtoLink
-      
-      // Show success message
-      setSubmitted(true)
-      toast({
-        title: "Opening your email client...",
-        description: "Please send the email to complete your submission.",
+      const response = await fetch(`${API_BASE_URL}/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       })
 
-      // Reset form after a delay
-      setTimeout(() => {
-        setFormData({ name: "", email: "", subject: "", message: "" })
-        setSubmitted(false)
-      }, 5000)
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        setSubmitted(true)
+        toast({
+          title: "Message Sent!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+        })
+
+        // Reset form after delay
+        setTimeout(() => {
+          setFormData({ name: "", email: "", subject: "", message: "" })
+          setSubmitted(false)
+        }, 5000)
+      } else {
+        toast({
+          title: "Error",
+          description: data.error || "Failed to send message. Please try again.",
+          variant: "destructive",
+        })
+      }
     } catch (error) {
+      console.error('Contact form error:', error)
       toast({
         title: "Error",
-        description: "Something went wrong. Please try again.",
+        description: "Something went wrong. Please try again later.",
         variant: "destructive",
       })
     } finally {
@@ -109,9 +117,9 @@ export default function ContactPage() {
                 {submitted ? (
                   <div className="text-center py-8 space-y-4">
                     <CheckCircle className="w-16 h-16 text-green-400 mx-auto" />
-                    <h3 className="text-xl font-semibold text-green-400">Message Sent!</h3>
+                    <h3 className="text-xl font-semibold text-green-400">Message Sent Successfully!</h3>
                     <p className="text-gray-300">
-                      Your email client should have opened with the message. Please send it to complete your submission.
+                      Thank you for reaching out. I'll get back to you as soon as possible.
                     </p>
                     <Button
                       onClick={() => setSubmitted(false)}
@@ -186,7 +194,10 @@ export default function ContactPage() {
                       size="lg"
                     >
                       {isSubmitting ? (
-                        <>Processing...</>
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Sending...
+                        </>
                       ) : (
                         <>
                           <Send className="w-4 h-4 mr-2" />
@@ -202,26 +213,6 @@ export default function ContactPage() {
 
           {/* Contact Info Sidebar */}
           <div className="space-y-6">
-            {/* Direct Contact */}
-            <Card className="glass-card-enhanced text-white">
-              <CardHeader>
-                <CardTitle className="text-lg">Direct Contact</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <Mail className="w-5 h-5 text-[#229ed9] mt-1" />
-                  <div>
-                    <p className="text-sm text-gray-400 mb-1">Email</p>
-                    <a
-                      href="mailto:jaigupta2004@gmail.com"
-                      className="text-white hover:text-[#229ed9] transition-colors break-all"
-                    >
-                      jaiwork04@gmail.com
-                    </a>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
 
             {/* Social Links */}
             <Card className="glass-card-enhanced text-white">

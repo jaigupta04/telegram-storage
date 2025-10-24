@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 
 const authRoutes = require('./src/routes/authRoutes');
 const fileRoutes = require('./src/routes/fileRoutes');
+const contactRoutes = require('./src/routes/contactRoutes');
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cookieParser());
 
 app.use('/', authRoutes);
 app.use('/', fileRoutes);
+app.use('/', contactRoutes);
 
 app.get('/api/test', async (req, res) => {
 
