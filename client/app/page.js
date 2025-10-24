@@ -44,16 +44,16 @@ const features = [
     icon: <Folder className="w-6 h-6 text-[#229ed9]" />
   },
   {
-    title: "Lightning Fast",
-    description: "Upload and download files at blazing speeds with optimized performance.",
+    title: "100% Free & Open Source",
+    description: "Completely free to use with no hidden costs. Open source code you can trust and contribute to.",
     link: "#",
-    icon: <Zap className="w-6 h-6 text-[#229ed9]" />
+    icon: <Check className="w-6 h-6 text-[#229ed9]" />
   },
   {
-    title: "Global Access",
-    description: "Access your files from anywhere in the world, on any device.",
+    title: "Secure & Private",
+    description: "Your files are stored securely in your own Telegram account. We never access your data.",
     link: "#",
-    icon: <Globe className="w-6 h-6 text-[#229ed9]" />
+    icon: <Cloud className="w-6 h-6 text-[#229ed9]" />
   },
   {
     title: "Easy Sharing",
