@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { MoreHorizontal, Download, Edit, Trash2, Share, Eye } from "lucide-react"
+import { toast } from "@/hooks/use-toast"
 
 interface FileCardProps {
   file: {
@@ -51,7 +52,10 @@ export function FileCard({ file, iconComponent: Icon, onRename, onDelete, onDown
               <Edit className="w-4 h-4 mr-2" />
               Rename
             </DropdownMenuItem>
-            <DropdownMenuItem className="hover:bg-[#0088cc]/20 cursor-pointer">
+            <DropdownMenuItem 
+              className="hover:bg-[#0088cc]/20 cursor-pointer" 
+              onClick={() => toast({ title: "Coming Soon", description: "File sharing feature will be available soon!" })}
+            >
               <Share className="w-4 h-4 mr-2" />
               Share
             </DropdownMenuItem>

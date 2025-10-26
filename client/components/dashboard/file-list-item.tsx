@@ -6,6 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Button } from "@/components/ui/button"
 import { MoreHorizontal, Download, Edit, Trash2, Share, Eye } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { toast } from "@/hooks/use-toast"
 
 interface FileListItemProps {
   file: {
@@ -58,7 +59,10 @@ export function FileListItem({ file, iconComponent: Icon, onRename, onDelete, on
               <Edit className="w-3 h-3 mr-1.5" />
               Rename
             </DropdownMenuItem>
-            <DropdownMenuItem className="hover:bg-gray-700 cursor-pointer text-xs py-1.5">
+            <DropdownMenuItem 
+              className="hover:bg-gray-700 cursor-pointer text-xs py-1.5"
+              onClick={() => toast({ title: "Coming Soon", description: "File sharing feature will be available soon!" })}
+            >
               <Share className="w-3 h-3 mr-1.5" />
               Share
             </DropdownMenuItem>
