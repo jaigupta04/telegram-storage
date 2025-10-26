@@ -13,7 +13,7 @@ export function DashboardSidebar({ currentPath, setCurrentPath }: DashboardSideb
     { name: "My Files", icon: Home, path: ["My Files"] },
     { name: "Shared with me", icon: Share2, path: ["Shared with me"] },
     { name: "Trash", icon: Trash2, path: ["Trash"] },
-    { name: "Settings", icon: Settings, path: ["Settings"] },
+    // { name: "Settings", icon: Settings, path: ["Settings"] }, // Coming soon
   ]
 
   return (
