@@ -34,6 +34,7 @@ export default function DashboardPage() {
   const [files, setFiles] = useState<AppFile[]>([])
   const [folders, setFolders] = useState<AppFolder[]>([])
   const [userId, setUserId] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const [showUploadDialog, setShowUploadDialog] = useState(false)
   const [showCreateFolderDialog, setShowCreateFolderDialog] = useState(false)
   const [showRenameDialog, setShowRenameDialog] = useState(false)
@@ -62,6 +63,7 @@ export default function DashboardPage() {
 
   const fetchData = async () => {
     if (!userId) return
+    setIsLoading(true)
     try {
       const currentFolder = currentPath[currentPath.length - 1] === "My Files" ? "root" : currentPath[currentPath.length - 1]
       const [foldersRes, filesRes] = await Promise.all([
@@ -75,6 +77,8 @@ export default function DashboardPage() {
     } catch (error) {
       console.error("Failed to fetch data:", error)
       toast({ title: "Error", description: "Failed to load your files.", variant: "destructive" })
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -194,6 +198,19 @@ export default function DashboardPage() {
 
   return (
     <div className="flex min-h-screen bg-[#1a1a1a] text-white">
+      {/* Loading Overlay */}
+      {isLoading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="relative w-16 h-16">
+              <div className="absolute inset-0 rounded-full border-4 border-t-[#0088cc] border-r-[#229ed9] border-b-transparent border-l-transparent animate-spin"></div>
+              <div className="absolute inset-2 rounded-full border-4 border-t-transparent border-r-transparent border-b-[#0088cc] border-l-[#229ed9] animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1s' }}></div>
+            </div>
+            <p className="text-white text-sm font-medium">Loading your files...</p>
+          </div>
+        </div>
+      )}
+
       <DashboardSidebar currentPath={currentPath} setCurrentPath={setCurrentPath} />
       <div className="flex-1 flex flex-col">
         <DashboardHeader
