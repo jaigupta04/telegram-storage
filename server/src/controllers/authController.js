@@ -110,6 +110,8 @@ const verifyCode = async (req, res) => {
             res.cookie('userId', me.id.toString(), { 
                 httpOnly: true, 
                 secure: process.env.NODE_ENV === 'production',
+                sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', //here
+                path: '/', //here
                 maxAge: 30 * 24 * 60 * 60 * 1000
             });
 
@@ -136,7 +138,7 @@ const verifyCode = async (req, res) => {
 };
 
 const logout = (req, res) => {
-  res.clearCookie('userId');
+  res.clearCookie('userId', { path: '/' });
   res.send({ success: true });
 };
 
@@ -277,6 +279,8 @@ const checkQRLogin = async (req, res) => {
                 res.cookie('userId', user.id.toString(), { 
                     httpOnly: true, 
                     secure: process.env.NODE_ENV === 'production',
+                    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+                    path: '/',
                     maxAge: 30 * 24 * 60 * 60 * 1000
                 });
 
@@ -353,6 +357,8 @@ const completeQRLogin = async (req, res) => {
             res.cookie('userId', user.id.toString(), { 
                 httpOnly: true, 
                 secure: process.env.NODE_ENV === 'production',
+                sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+                path: '/',
                 maxAge: 30 * 24 * 60 * 60 * 1000
             });
 
