@@ -13,7 +13,7 @@ export function MobileSidebar({ currentPath, setCurrentPath, onClose }: MobileSi
   const navItems = [
     { name: "My Files", icon: Home, path: ["My Files"] },
     { name: "Shared with me", icon: Share2, path: ["Shared with me"] },
-    { name: "Trash", icon: Trash2, path: ["Trash"] },
+    // { name: "Trash", icon: Trash2, path: ["Trash"] }, // Coming soon
     // { name: "Settings", icon: Settings, path: ["Settings"] }, // Coming soon
   ]
 
