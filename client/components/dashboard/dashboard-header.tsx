@@ -2,9 +2,8 @@
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Search, Upload, FolderPlus, User, Settings, LogOut, Menu } from "lucide-react"
+import { Search, Upload, FolderPlus, LogOut, Menu } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { MobileSidebar } from "./mobile-sidebar"
@@ -82,32 +81,16 @@ export function DashboardHeader({ onUploadClick, onCreateFolderClick, onSearchCh
             <FolderPlus className="w-4 h-4 sm:mr-1.5" />
             <span className="hidden sm:inline">Create</span>
           </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="rounded-full glass-outline-enhanced text-white hover:bg-[#0088cc]/20 hover:text-white"
-              >
-                <User className="w-4 h-4" />
-                <span className="sr-only">User menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="glass-card-enhanced text-white border-white/20">
-              <DropdownMenuItem className="hover:bg-[#0088cc]/20 cursor-pointer text-sm">
-                <Settings className="w-3.5 h-3.5 mr-2" />
-                Settings
-              </DropdownMenuItem>
-              <DropdownMenuItem 
-                className="hover:bg-[#0088cc]/20 cursor-pointer text-sm"
-                onClick={handleLogout}
-                disabled={isLoggingOut}
-              >
-                <LogOut className="w-3.5 h-3.5 mr-2" />
-                {isLoggingOut ? 'Logging out...' : 'Logout'}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="glass-outline-enhanced text-white hover:bg-red-500/20 hover:text-red-400 text-sm px-2 sm:px-3"
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+          >
+            <LogOut className="w-4 h-4 sm:mr-1.5" />
+            <span className="hidden sm:inline">{isLoggingOut ? 'Logging out...' : 'Logout'}</span>
+          </Button>
         </div>
       </div>
     </header>
