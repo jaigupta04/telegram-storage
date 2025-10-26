@@ -28,10 +28,10 @@ export function FileListItem({ file, iconComponent: Icon, onRename, onDelete, on
     <div
       className={cn(
         "flex items-center justify-between p-2 rounded-lg bg-transparent text-white",
-        "hover:bg-gray-800 transition-colors duration-200",
+        "hover:bg-gray-800 transition-colors duration-200 cursor-pointer",
       )}
     >
-      <div className="flex items-center space-x-2.5 flex-1 min-w-0">
+      <div className="flex items-center space-x-2.5 flex-1 min-w-0" onClick={onView}>
         <Icon className="w-4 h-4 text-[#229ed9] shrink-0" />
         <span className="font-medium truncate text-sm">{file.name}</span>
       </div>

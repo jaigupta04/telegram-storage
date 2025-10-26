@@ -25,14 +25,14 @@ interface FileCardProps {
 
 export function FileCard({ file, iconComponent: Icon, onRename, onDelete, onDownload, onView }: FileCardProps) {
   return (
-    <Card className="glass-card-enhanced text-white hover:glass-strong transition-all duration-300 transform hover:-translate-y-1">
-      <CardHeader className="flex flex-row items-center justify-between p-3 md:pb-2">
+    <Card className="glass-card-enhanced text-white hover:glass-strong transition-all duration-300 transform hover:-translate-y-1 cursor-pointer">
+      <CardHeader className="flex flex-row items-center justify-between p-3 md:pb-2" onClick={onView}>
         <div className="flex items-center space-x-2 md:space-x-3">
           <Icon className="w-6 h-6 md:w-8 md:h-8 text-[#229ed9]" />
           <CardTitle className="text-base md:text-lg font-semibold truncate">{file.name}</CardTitle>
         </div>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
             <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white h-8 w-8">
               <MoreHorizontal className="w-4 h-4 md:w-5 md:h-5" />
               <span className="sr-only">File actions</span>
@@ -62,7 +62,7 @@ export function FileCard({ file, iconComponent: Icon, onRename, onDelete, onDown
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
-      <CardContent className="text-xs md:text-sm text-gray-400 pt-0 px-3 pb-3">
+      <CardContent className="text-xs md:text-sm text-gray-400 pt-0 px-3 pb-3" onClick={onView}>
         <p>Size: {file.size}</p>
         <p>Last Modified: {file.lastModified}</p>
       </CardContent>
