@@ -4,14 +4,14 @@ import type React from "react"
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import { MoreHorizontal, Download, Edit, Trash2, Share } from "lucide-react"
+import { MoreHorizontal, Download, Edit, Trash2, Share, Eye } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface FileListItemProps {
   file: {
     id: string
     name: string
-    type: "file"
+    type?: string  // MIME type or undefined
     size: string
     lastModified: string
     icon: string // Name of the Lucide icon
@@ -20,9 +20,10 @@ interface FileListItemProps {
   onRename: () => void
   onDelete: () => void
   onDownload: () => void
+  onView: () => void
 }
 
-export function FileListItem({ file, iconComponent: Icon, onRename, onDelete, onDownload }: FileListItemProps) {
+export function FileListItem({ file, iconComponent: Icon, onRename, onDelete, onDownload, onView }: FileListItemProps) {
   return (
     <div
       className={cn(
@@ -45,6 +46,10 @@ export function FileListItem({ file, iconComponent: Icon, onRename, onDelete, on
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="bg-gray-900 text-white border border-gray-700">
+            <DropdownMenuItem className="hover:bg-gray-700 cursor-pointer text-xs py-1.5" onClick={onView}>
+              <Eye className="w-3 h-3 mr-1.5" />
+              View
+            </DropdownMenuItem>
             <DropdownMenuItem className="hover:bg-gray-700 cursor-pointer text-xs py-1.5" onClick={onDownload}>
               <Download className="w-3 h-3 mr-1.5" />
               Download

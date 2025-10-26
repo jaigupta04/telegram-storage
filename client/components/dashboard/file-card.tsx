@@ -5,13 +5,13 @@ import type React from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import { MoreHorizontal, Download, Edit, Trash2, Share } from "lucide-react"
+import { MoreHorizontal, Download, Edit, Trash2, Share, Eye } from "lucide-react"
 
 interface FileCardProps {
   file: {
     id: string
     name: string
-    type: "file"
+    type?: string  // MIME type or undefined
     size: string
     lastModified: string
     icon: string // Name of the Lucide icon
@@ -20,9 +20,10 @@ interface FileCardProps {
   onRename: () => void
   onDelete: () => void
   onDownload: () => void
+  onView: () => void
 }
 
-export function FileCard({ file, iconComponent: Icon, onRename, onDelete, onDownload }: FileCardProps) {
+export function FileCard({ file, iconComponent: Icon, onRename, onDelete, onDownload, onView }: FileCardProps) {
   return (
     <Card className="glass-card-enhanced text-white hover:glass-strong transition-all duration-300 transform hover:-translate-y-1">
       <CardHeader className="flex flex-row items-center justify-between p-3 md:pb-2">
@@ -38,6 +39,10 @@ export function FileCard({ file, iconComponent: Icon, onRename, onDelete, onDown
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="glass-card-enhanced text-white border-white/20">
+            <DropdownMenuItem className="hover:bg-[#0088cc]/20 cursor-pointer" onClick={onView}>
+              <Eye className="w-4 h-4 mr-2" />
+              View
+            </DropdownMenuItem>
             <DropdownMenuItem className="hover:bg-[#0088cc]/20 cursor-pointer" onClick={onDownload}>
               <Download className="w-4 h-4 mr-2" />
               Download

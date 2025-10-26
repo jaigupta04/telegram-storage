@@ -88,6 +88,33 @@ const downloadFile = async (req, res) => {
   }
 };
 
+const viewFile = async (req, res) => {
+  const { msgId } = req.params;
+  const client = req.telegramClient;
+
+  try {
+    const messages = await client.getMessages("me", { ids: [parseInt(msgId)] });
+    if (!messages || messages.length === 0 || !messages[0].media) {
+      return res.status(404).send({ error: 'File not found in Telegram.' });
+    }
+
+    const fileDoc = await db.collection('users').doc(req.params.userId).collection('files').doc(msgId).get();
+    const fileName = fileDoc.data().name;
+    const fileType = fileDoc.data().type;
+
+    const buffer = await client.downloadMedia(messages[0].media);
+
+    // Set Content-Disposition to inline so browser tries to display it
+    res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
+    res.setHeader('Content-Type', fileType);
+    res.send(buffer);
+
+  } catch (error) {
+    console.error('View error:', error);
+    res.status(500).send({ error: 'Failed to view file.' });
+  }
+};
+
 const uploadFile = async (req, res) => {
   const { userId, folder } = req.body;
   const file = req.file;
@@ -222,4 +249,4 @@ const deleteItem = async (req, res) => {
   }
 };
 
-module.exports = { getFolders, getFiles, uploadFileMeta, downloadFile, createFolder, renameItem, deleteItem, uploadFile };
+module.exports = { getFolders, getFiles, uploadFileMeta, downloadFile, viewFile, createFolder, renameItem, deleteItem, uploadFile };

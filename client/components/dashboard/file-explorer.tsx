@@ -8,13 +8,14 @@ import { FileText, Folder, ImageIcon, Presentation, Video, File } from "lucide-r
 
 interface FileExplorerProps {
   currentPath: string[]
-  files: { id: string; name: string; type: "file"; size: string; lastModified: string; icon: string }[]
+  files: Array<{ id: string; name: string; type?: string; size: string; lastModified: string; icon: string }>
   folders: { id: string; name: string; type: "folder"; lastModified: string }[]
   onFolderClick: (folderName: string) => void
   onBreadcrumbClick: (index: number) => void
-  onRename: (item: { id: string; name: string; type: "file" | "folder" }) => void
-  onDelete: (item: { id: string; name: string; type: "file" | "folder" }) => void
+  onRename: (item: any) => void
+  onDelete: (item: any) => void
   onDownload: (file: any) => void
+  onView: (file: any) => void
 }
 
 const iconMap: { [key: string]: React.ElementType } = {
@@ -35,6 +36,7 @@ export function FileExplorer({
   onRename,
   onDelete,
   onDownload,
+  onView,
 }: FileExplorerProps) {
   const currentFolderName = currentPath[currentPath.length - 1]
 
@@ -65,6 +67,7 @@ export function FileExplorer({
               onRename={() => onRename(file)}
               onDelete={() => onDelete(file)}
               onDownload={() => onDownload(file)}
+              onView={() => onView(file)}
             />
           ))}
         </div>

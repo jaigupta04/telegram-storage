@@ -8,6 +8,7 @@ import { UploadFileDialog } from "@/components/dashboard/upload-file-dialog"
 import { CreateFolderDialog } from "@/components/dashboard/create-folder-dialog"
 import { RenameDialog } from "@/components/dashboard/rename-dialog"
 import { DeleteDialog } from "@/components/dashboard/delete-dialog"
+import { FileViewerDialog } from "@/components/dashboard/file-viewer-dialog"
 import { toast } from "@/hooks/use-toast"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { API_BASE_URL } from "@/lib/api"
@@ -16,10 +17,14 @@ import Cookies from "js-cookie"
 type AppFile = {
   id: string
   name: string
-  type: "file"
+  type?: string  // MIME type from backend
   size: string
   lastModified: string
   icon: string
+  folder?: string
+  extension?: string
+  uploadedAt?: string
+  downloadCount?: number
 }
 
 type AppFolder = {
@@ -39,7 +44,8 @@ export default function DashboardPage() {
   const [showCreateFolderDialog, setShowCreateFolderDialog] = useState(false)
   const [showRenameDialog, setShowRenameDialog] = useState(false)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<{ id: string; name: string; type: "file" | "folder" } | null>(null)
+  const [showViewerDialog, setShowViewerDialog] = useState(false)
+  const [selectedItem, setSelectedItem] = useState<AppFile | AppFolder | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
   const isMobile = useIsMobile()
 
@@ -161,12 +167,12 @@ export default function DashboardPage() {
     }
   }
 
-  const handleOpenRenameDialog = (item: { id: string; name: string; type: "file" | "folder" }) => {
+  const handleOpenRenameDialog = (item: AppFile | AppFolder) => {
     setSelectedItem(item)
     setShowRenameDialog(true)
   }
 
-  const handleOpenDeleteDialog = (item: { id: string; name: string; type: "file" | "folder" }) => {
+  const handleOpenDeleteDialog = (item: AppFile | AppFolder) => {
     setSelectedItem(item)
     setShowDeleteDialog(true)
   }
@@ -191,6 +197,11 @@ export default function DashboardPage() {
       console.error("Download failed:", error);
       toast({ title: "Error", description: "Failed to download file.", variant: "destructive" });
     }
+  };
+
+  const handleView = (file: AppFile) => {
+    setSelectedItem(file);
+    setShowViewerDialog(true);
   };
 
   const filteredFiles = files.filter((file) => file.name.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -231,6 +242,7 @@ export default function DashboardPage() {
             onRename={handleOpenRenameDialog}
             onDelete={handleOpenDeleteDialog}
             onDownload={handleDownload}
+            onView={handleView}
           />
         </main>
       </div>
@@ -259,6 +271,15 @@ export default function DashboardPage() {
             onDelete={handleDelete}
             itemName={selectedItem.name}
           />
+          {selectedItem.type !== "folder" && (
+            <FileViewerDialog
+              isOpen={showViewerDialog}
+              onClose={() => setShowViewerDialog(false)}
+              file={selectedItem as AppFile}
+              userId={userId}
+              onDownload={() => handleDownload(selectedItem as AppFile)}
+            />
+          )}
         </>
       )}
     </div>
