@@ -78,7 +78,11 @@ export default function DashboardPage() {
       ])
       const foldersData = await foldersRes.json()
       const filesData = await filesRes.json()
-      setFolders(foldersData.map((f: string) => ({ id: f, name: f, type: "folder", lastModified: "" })))
+      
+      // Only show folders at root level (My Files)
+      // When inside a folder, don't show any folders (since we don't support nested folders yet)
+      const shouldShowFolders = currentFolder === "root"
+      setFolders(shouldShowFolders ? foldersData.map((f: string) => ({ id: f, name: f, type: "folder", lastModified: "" })) : [])
       setFiles(filesData)
     } catch (error) {
       console.error("Failed to fetch data:", error)
