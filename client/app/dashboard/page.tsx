@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
 import { DashboardSidebar } from "@/components/dashboard/dashboard-sidebar"
 import { FileExplorer } from "@/components/dashboard/file-explorer"
@@ -35,6 +36,8 @@ type AppFolder = {
 }
 
 export default function DashboardPage() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [currentPath, setCurrentPath] = useState(["My Files"])
   const [files, setFiles] = useState<AppFile[]>([])
   const [folders, setFolders] = useState<AppFolder[]>([])
@@ -48,6 +51,34 @@ export default function DashboardPage() {
   const [selectedItem, setSelectedItem] = useState<AppFile | AppFolder | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
   const isMobile = useIsMobile()
+
+  // Initialize path from URL on mount
+  useEffect(() => {
+    const folderParam = searchParams.get('folder')
+    if (folderParam) {
+      const decodedFolder = decodeURIComponent(folderParam)
+      const pathParts = decodedFolder.split('/').filter(Boolean)
+      setCurrentPath(['My Files', ...pathParts])
+    }
+  }, [])
+
+  // Listen for popstate (back/forward button)
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search)
+      const folderParam = params.get('folder')
+      if (folderParam) {
+        const decodedFolder = decodeURIComponent(folderParam)
+        const pathParts = decodedFolder.split('/').filter(Boolean)
+        setCurrentPath(['My Files', ...pathParts])
+      } else {
+        setCurrentPath(['My Files'])
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
 
   useEffect(() => {
     const checkUser = async () => {
@@ -113,6 +144,14 @@ export default function DashboardPage() {
 
   useEffect(() => {
     fetchData()
+    
+    // Update URL when path changes
+    if (currentPath.length > 1) {
+      const folderPath = currentPath.slice(1).join('/')
+      router.push(`/dashboard?folder=${encodeURIComponent(folderPath)}`, { scroll: false })
+    } else {
+      router.push('/dashboard', { scroll: false })
+    }
   }, [userId, currentPath])
 
   const handleUploadFile = async (file: globalThis.File) => {
