@@ -72,17 +72,36 @@ export default function DashboardPage() {
     setIsLoading(true)
     try {
       const currentFolder = currentPath[currentPath.length - 1] === "My Files" ? "root" : currentPath[currentPath.length - 1]
+      
+      // URL encode the folder path to handle slashes in nested folders
+      const encodedFolder = encodeURIComponent(currentFolder)
+      
       const [foldersRes, filesRes] = await Promise.all([
         fetch(`${API_BASE_URL}/folders/${userId}`),
-        fetch(`${API_BASE_URL}/files/${userId}/${currentFolder}`),
+        fetch(`${API_BASE_URL}/files/${userId}/${encodedFolder}`),
       ])
-      const foldersData = await foldersRes.json()
+      const allFolders = await foldersRes.json()
       const filesData = await filesRes.json()
       
-      // Only show folders at root level (My Files)
-      // When inside a folder, don't show any folders (since we don't support nested folders yet)
-      const shouldShowFolders = currentFolder === "root"
-      setFolders(shouldShowFolders ? foldersData.map((f: string) => ({ id: f, name: f, type: "folder", lastModified: "" })) : [])
+      // Filter folders based on current path
+      let visibleFolders = []
+      if (currentFolder === "root") {
+        // At root level, show only top-level folders (no "/" in name)
+        visibleFolders = allFolders
+          .filter((f: string) => !f.includes('/'))
+          .map((f: string) => ({ id: f, name: f, type: "folder", lastModified: "" }))
+      } else {
+        // Inside a folder, show only direct subfolders
+        const prefix = currentFolder + '/'
+        visibleFolders = allFolders
+          .filter((f: string) => f.startsWith(prefix) && !f.slice(prefix.length).includes('/'))
+          .map((f: string) => {
+            const subfolderName = f.slice(prefix.length)
+            return { id: f, name: subfolderName, type: "folder", lastModified: "" }
+          })
+      }
+      
+      setFolders(visibleFolders)
       setFiles(filesData)
     } catch (error) {
       console.error("Failed to fetch data:", error)
@@ -121,10 +140,15 @@ export default function DashboardPage() {
   const handleCreateFolder = async (folderName: string) => {
     if (!userId) return
     try {
+      const currentFolder = currentPath[currentPath.length - 1] === "My Files" ? "root" : currentPath[currentPath.length - 1]
+      
+      // If we're inside a folder, create the folder name with path separator
+      const fullFolderName = currentFolder === "root" ? folderName : `${currentFolder}/${folderName}`
+      
       await fetch(`${API_BASE_URL}/folder`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, folderName }),
+        body: JSON.stringify({ userId, folderName: fullFolderName }),
       })
       fetchData()
       setShowCreateFolderDialog(false)
@@ -241,7 +265,7 @@ export default function DashboardPage() {
             currentPath={currentPath}
             files={filteredFiles}
             folders={filteredFolders}
-            onFolderClick={(folderName) => setCurrentPath([...currentPath, folderName])}
+            onFolderClick={(folder) => setCurrentPath([...currentPath, folder.id])}
             onBreadcrumbClick={(index) => setCurrentPath(currentPath.slice(0, index + 1))}
             onRename={handleOpenRenameDialog}
             onDelete={handleOpenDeleteDialog}

@@ -10,7 +10,7 @@ interface FileExplorerProps {
   currentPath: string[]
   files: Array<{ id: string; name: string; type?: string; size: string; lastModified: string; icon: string }>
   folders: { id: string; name: string; type: "folder"; lastModified: string }[]
-  onFolderClick: (folderName: string) => void
+  onFolderClick: (folder: { id: string; name: string; type: "folder"; lastModified: string }) => void
   onBreadcrumbClick: (index: number) => void
   onRename: (item: any) => void
   onDelete: (item: any) => void
@@ -54,7 +54,7 @@ export function FileExplorer({
             <FolderListItem
               key={folder.id}
               folder={folder}
-              onClick={() => onFolderClick(folder.name)}
+              onClick={() => onFolderClick(folder)}
               onRename={() => onRename(folder)}
               onDelete={() => onDelete(folder)}
             />

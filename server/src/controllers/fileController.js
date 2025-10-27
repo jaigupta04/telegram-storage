@@ -29,11 +29,14 @@ const getIconForFile = (fileName) => {
 };
 
 const getFiles = async (req, res) => {
+  // Decode the folder parameter to handle paths with slashes
+  const folder = decodeURIComponent(req.params.folder);
+  
   const filesSnap = await db
     .collection('users')
     .doc(req.params.userId)
     .collection('files')
-    .where('folder', '==', req.params.folder)
+    .where('folder', '==', folder)
     .get();
   const files = filesSnap.docs.map(doc => {
     const data = doc.data();
