@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
 import { DashboardSidebar } from "@/components/dashboard/dashboard-sidebar"
@@ -35,7 +35,7 @@ type AppFolder = {
   lastModified: string
 }
 
-export default function DashboardPage() {
+function DashboardContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [currentPath, setCurrentPath] = useState(["My Files"])
@@ -350,5 +350,23 @@ export default function DashboardPage() {
         </>
       )}
     </div>
+  )
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen bg-[#1a1a1a] text-white items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="relative w-16 h-16">
+            <div className="absolute inset-0 rounded-full border-4 border-t-[#0088cc] border-r-[#229ed9] border-b-transparent border-l-transparent animate-spin"></div>
+            <div className="absolute inset-2 rounded-full border-4 border-t-transparent border-r-transparent border-b-[#0088cc] border-l-[#229ed9] animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1s' }}></div>
+          </div>
+          <p className="text-white text-sm font-medium">Loading...</p>
+        </div>
+      </div>
+    }>
+      <DashboardContent />
+    </Suspense>
   )
 }
