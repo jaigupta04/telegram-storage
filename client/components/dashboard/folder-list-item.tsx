@@ -39,7 +39,6 @@ export function FolderListItem({ folder, onClick, onRename, onDelete }: FolderLi
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              size="xs"
               className="text-gray-400 hover:text-white h-6 w-6"
               onClick={(e) => e.stopPropagation()} // Prevent folder click when opening dropdown
             >

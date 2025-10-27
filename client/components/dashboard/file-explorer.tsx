@@ -45,8 +45,13 @@ export function FileExplorer({
       <h2 className="text-2xl font-bold text-white">{currentFolderName}</h2>
 
       {folders.length === 0 && files.length === 0 ? (
-        <div className="text-center text-gray-400 py-10 glass-card-enhanced rounded-lg">
-          <p className="text-base">This folder is empty. Start by uploading files or creating new folders!</p>
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center space-y-3">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/5 mb-2">
+              <Folder className="w-8 h-8 text-gray-500" strokeWidth={1.5} />
+            </div>
+            <p className="text-sm text-gray-500 font-light">Empty folder</p>
+          </div>
         </div>
       ) : (
         <div className="flex flex-col gap-2">
