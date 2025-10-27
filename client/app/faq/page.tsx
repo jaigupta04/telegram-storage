@@ -94,19 +94,19 @@ export default function FAQPage() {
   return (
     <div className="min-h-screen bg-[#1a1a1a] text-white py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-        <div className="flex items-center justify-center relative mb-12">
-          <div className="absolute left-0">
+          <div className="mb-8">
             <Link href="/" passHref>
               <Button
                 variant="ghost"
                 className="text-white hover:bg-white/10"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Back
+                Back to Home
               </Button>
             </Link>
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent text-center">
+        <div className="text-center mb-12">
+          <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
             Frequently Asked Questions
           </h1>
         </div>
